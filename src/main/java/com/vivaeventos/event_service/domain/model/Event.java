@@ -27,5 +27,8 @@ public class Event {
     private Integer general_capacity;
     private Integer vip_capacity;
     private Integer student_capacity;
+    private Integer general_price;
+    private Integer vip_price;
+    private Integer student_price;
     
 }
