@@ -23,12 +23,17 @@ public class Event {
     private String name;
     private String description;
     private LocalDateTime date;
-    private String Address;
+    private String address;
+
     private Integer general_capacity;
     private Integer vip_capacity;
     private Integer student_capacity;
-    private Integer general_price;
-    private Integer vip_price;
-    private Integer student_price;
     
+    private Integer general_tickets_sold;
+    private Integer vip_tickets_sold;
+    private Integer student_tickets_sold;
+
+    private Double general_price;
+    private Double vip_price;
+    private Double student_price;
 }
