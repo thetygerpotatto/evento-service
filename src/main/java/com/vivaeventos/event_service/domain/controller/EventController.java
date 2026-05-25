@@ -31,7 +31,7 @@ import jakarta.validation.Valid;
  * EventController
  */
 @RestController
-@RequestMapping("/api/v1/event-service")
+@RequestMapping("/eventos-api")
 public class EventController {
 
     private final IEventService eventService;
@@ -115,10 +115,10 @@ public class EventController {
      */
     @GetMapping("/eventos/{id}")
     public ResponseEntity<Map<String, Object>> findById(@PathVariable UUID id) {
-        Event event = eventService.findById(id);
-        Map<String, Object> response = new HashMap<>();
-        response.put(MENSAJE, "El producto ha sido encontrado con éxito!");
-        response.put(PRODUCTO, producto);
+    Optional<Event> event = eventService.findById(id);
+    Map<String, Object> response = new HashMap<>();
+        response.put(MSJ, "El evento ha sido encontrado con éxito!");
+        response.put(EVENT, event);
         return ResponseEntity.ok(response);
     }
 }
