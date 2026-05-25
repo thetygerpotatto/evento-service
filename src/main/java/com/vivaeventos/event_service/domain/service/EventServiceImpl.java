@@ -2,6 +2,11 @@ package com.vivaeventos.event_service.domain.service;
 
 import java.util.Optional;
 import java.util.UUID;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 import com.vivaeventos.event_service.domain.model.Event;
@@ -9,6 +14,7 @@ import com.vivaeventos.event_service.domain.repository.IEventRepository;
 /**
  * EventServiceImpl
  */
+@Service
 public class EventServiceImpl implements IEventService {
     
     IEventRepository eventRepository;
@@ -40,6 +46,11 @@ public class EventServiceImpl implements IEventService {
     @Override
     public List<Event> findAll() {
         return eventRepository.findAll();
+    }
+
+    @Override
+    public Page<Event> findAll(Pageable pageable) {
+        return eventRepository.findAll(pageable);
     }
     
 }
