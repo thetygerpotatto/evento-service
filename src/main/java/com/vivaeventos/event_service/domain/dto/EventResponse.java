@@ -26,5 +26,5 @@ public class EventResponse {
 
     private EventStatus status;
 
-    private LocalDateTime activatedAt;
+    private LocalDateTime createdAt;
 }

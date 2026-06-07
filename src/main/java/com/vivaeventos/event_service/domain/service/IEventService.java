@@ -24,7 +24,7 @@ public interface IEventService {
 
     EventDetailResponse findEventById(UUID id);
 
-    EventResponse update(CreateEventRequest event);
+    //EventResponse update(CreateEventRequest event);
 
     //Page<Event> findAll(Pageable pageable);
     //List<Event> findAll();

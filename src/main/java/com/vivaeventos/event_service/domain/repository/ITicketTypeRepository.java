@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 
 public interface ITicketTypeRepository extends JpaRepository<TicketType, UUID> {
-    boolean existsByEventId(UUID eventId);
+    boolean existsByEvent_Id(UUID eventId);
 }

@@ -113,7 +113,7 @@ public class EventServiceImpl implements IEventService {
         }
 
         boolean hasTicketTypes =
-                ticketTypeRepository.existsByEventId(eventId);
+                ticketTypeRepository.existsByEvent_Id(eventId);
 
         if (!hasTicketTypes) {
 
@@ -122,8 +122,6 @@ public class EventServiceImpl implements IEventService {
         }
 
         event.setStatus(EventStatus.ACTIVO);
-
-        event.setActivatedAt(LocalDateTime.now());
 
         Event updatedEvent =
                 eventRepository.save(event);

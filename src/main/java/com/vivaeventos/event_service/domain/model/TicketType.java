@@ -22,7 +22,7 @@ public class TicketType {
     
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID Id;
+    private UUID id;
 
     @NotEmpty(message ="No puede estar vacio")
     @Size(min=2, max=20, message="El tamaño tiene que estar entre 2 y 20")

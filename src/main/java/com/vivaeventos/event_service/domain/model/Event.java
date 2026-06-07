@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.Builder;
 
 import java.util.List;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -36,16 +37,20 @@ public class Event {
     private String description;
 
     @Column(nullable=false)
-    private LocalDateTime date;
+    private LocalDate date;
 
-    @NotEmpty(message ="No puede estar vacio")
-    @Size(min=2, max=20, message="El tamaño tiene que estar entre 2 y 20")
+    @Column(nullable = false)
+    private String city; 
+
     @Column(nullable=false)
     private String address;
 
-    @NotEmpty(message ="No puede estar vacio")
+    @Enumerated(EnumType.STRING)
     @Column(nullable=false)
     private EventStatus status;
+
+    @Column
+    private LocalDateTime createdAt; 
 
     @Builder.Default
     @OneToMany(

@@ -1,5 +1,6 @@
 package com.vivaeventos.event_service.domain.dto;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import lombok.Builder;
@@ -13,7 +14,7 @@ public class TicketTypeResponse {
 
     private String name;
 
-    private Double price;
+    private BigDecimal price;
 
     private Integer maxCup;
 }
