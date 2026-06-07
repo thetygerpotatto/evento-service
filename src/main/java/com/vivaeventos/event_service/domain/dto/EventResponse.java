@@ -6,30 +6,25 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
 public class EventResponse {
 
-    private Long id;
+    private UUID id;
 
-    private String nombre;
+    private String name;
 
-    private String descripcion;
+    private String description;
 
-    private LocalDate fecha;
+    private LocalDate date;
 
-    private String lugar;
+    private String address;
 
-    private String ciudad;
+    private String city;
 
-    private EventStatus estado;
-
-    private Long createdBy;
-
-    private LocalDateTime createdAt;
-
-    private Long activatedBy;
+    private EventStatus status;
 
     private LocalDateTime activatedAt;
 }
