@@ -1,5 +1,10 @@
 package com.vivaeventos.event_service.domain.service;
 
+import com.vivaeventos.event_service.domain.dto.CreateEventRequest;
+import com.vivaeventos.event_service.domain.dto.CreateTicketTypeRequest;
+import com.vivaeventos.event_service.domain.dto.EventDetailResponse;
+import com.vivaeventos.event_service.domain.dto.TicketTypeResponse;
+import com.vivaeventos.event_service.domain.dto.EventResponse;
 import com.vivaeventos.event_service.domain.model.Event;
 import java.util.List;
 import java.util.Optional;
@@ -9,10 +14,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IEventService {
-    Event save(Event event);
-    void delete(Event event);
-    Optional<Event> findById(UUID id);
-    Event update(Event event);
-    Page<Event> findAll(Pageable pageable);
-    List<Event> findAll();
+    EventResponse createEvent(CreateEventRequest request);
+    TicketTypeResponse CreateTicketType(UUID eventId, CreateTicketTypeRequest request);
+    EventResponse activateEvent(UUID eventId);
+    List<EventResponse> getActiveEvents();
+    Optional<EventDetailResponse> findEventById(UUID id);
+    EventResponse update(Event event);
+
+    //Page<Event> findAll(Pageable pageable);
+    //List<Event> findAll();
 }
