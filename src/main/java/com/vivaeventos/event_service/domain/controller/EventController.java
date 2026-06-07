@@ -88,7 +88,7 @@ public class EventController {
      */
     @DeleteMapping("/eventos")
     public ResponseEntity<Map<String, Object>> delete(@RequestBody Event event) {
-        eventService.findById(event.getEventId);
+        eventService.findById(event.getEventId());
         eventService.delete(event);
         Map<String, Object> response = new HashMap<>();
         response.put(MSJ, "El producto ha sido eliminado con éxito!");

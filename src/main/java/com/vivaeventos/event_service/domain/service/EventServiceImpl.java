@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.vivaeventos.event_service.domain.model.Event;
 import com.vivaeventos.event_service.domain.repository.IEventRepository;
+import com.vivaeventos.event_service.domain.repository.ITicketTypeRepository;
 /**
  * EventServiceImpl
  */
@@ -18,6 +19,7 @@ import com.vivaeventos.event_service.domain.repository.IEventRepository;
 public class EventServiceImpl implements IEventService {
     
     IEventRepository eventRepository;
+    ITicketTypeRepository ticketTypeRepository;
 
     public EventServiceImpl(IEventRepository eventRepository) {
         this.eventRepository = eventRepository;

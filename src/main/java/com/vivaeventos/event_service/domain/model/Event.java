@@ -1,22 +1,24 @@
 package com.vivaeventos.event_service.domain.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.Builder;
 
+import java.util.List;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
+@Table(name = "events")
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Event {
     
     @Id
@@ -41,24 +43,11 @@ public class Event {
     @Column(nullable=false)
     private String address;
 
-    @Column(nullable=false)
-    private Integer general_capacity;
-    @Column(nullable=false)
-    private Integer vip_capacity;
-    @Column(nullable=false)
-    private Integer student_capacity;
-    
-    @Column(nullable=false)
-    private Integer general_tickets_sold;
-    @Column(nullable=false)
-    private Integer vip_tickets_sold;
-    @Column(nullable=false)
-    private Integer student_tickets_sold;
-
-    @Column(nullable=false)
-    private Double general_price;
-    @Column(nullable=false)
-    private Double vip_price;
-    @Column(nullable=false)
-    private Double student_price;
+    @Builder.Default
+    @OneToMany(
+        mappedBy = "event", 
+        cascade = CascadeType.ALL, 
+        orphanRemoval = true,
+        fetch = FetchType.EAGER)
+    private List<TicketType> ticketTypes = new ArrayList<>();
 }
