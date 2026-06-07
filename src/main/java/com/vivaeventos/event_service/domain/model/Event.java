@@ -23,7 +23,7 @@ public class Event {
     
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID eventId;
+    private UUID id;
 
     @NotEmpty(message ="No puede estar vacio")
     @Size(min=2, max=20, message="El tamaño tiene que estar entre 2 y 20")
@@ -42,6 +42,10 @@ public class Event {
     @Size(min=2, max=20, message="El tamaño tiene que estar entre 2 y 20")
     @Column(nullable=false)
     private String address;
+
+    @NotEmpty(message ="No puede estar vacio")
+    @Column(nullable=false)
+    private EventStatus status;
 
     @Builder.Default
     @OneToMany(

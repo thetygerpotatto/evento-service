@@ -15,11 +15,16 @@ import org.springframework.data.domain.Pageable;
 
 public interface IEventService {
     EventResponse createEvent(CreateEventRequest request);
-    TicketTypeResponse CreateTicketType(UUID eventId, CreateTicketTypeRequest request);
+
+    TicketTypeResponse createTicketType(UUID eventId, CreateTicketTypeRequest request);
+
     EventResponse activateEvent(UUID eventId);
+
     List<EventResponse> getActiveEvents();
-    Optional<EventDetailResponse> findEventById(UUID id);
-    EventResponse update(Event event);
+
+    EventDetailResponse findEventById(UUID id);
+
+    EventResponse update(CreateEventRequest event);
 
     //Page<Event> findAll(Pageable pageable);
     //List<Event> findAll();
