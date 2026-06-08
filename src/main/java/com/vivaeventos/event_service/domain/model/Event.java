@@ -1,27 +1,30 @@
 package com.vivaeventos.event_service.domain.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.Builder;
 
+import java.util.List;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
+@Table(name = "events")
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Event {
     
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID eventId;
+    private UUID id;
 
     @NotEmpty(message ="No puede estar vacio")
     @Size(min=2, max=20, message="El tamaño tiene que estar entre 2 y 20")
@@ -34,31 +37,26 @@ public class Event {
     private String description;
 
     @Column(nullable=false)
-    private LocalDateTime date;
+    private LocalDate date;
 
-    @NotEmpty(message ="No puede estar vacio")
-    @Size(min=2, max=20, message="El tamaño tiene que estar entre 2 y 20")
+    @Column(nullable = false)
+    private String city; 
+
     @Column(nullable=false)
     private String address;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable=false)
-    private Integer general_capacity;
-    @Column(nullable=false)
-    private Integer vip_capacity;
-    @Column(nullable=false)
-    private Integer student_capacity;
-    
-    @Column(nullable=false)
-    private Integer general_tickets_sold;
-    @Column(nullable=false)
-    private Integer vip_tickets_sold;
-    @Column(nullable=false)
-    private Integer student_tickets_sold;
+    private EventStatus status;
 
-    @Column(nullable=false)
-    private Double general_price;
-    @Column(nullable=false)
-    private Double vip_price;
-    @Column(nullable=false)
-    private Double student_price;
+    @Column
+    private LocalDateTime createdAt; 
+
+    @Builder.Default
+    @OneToMany(
+        mappedBy = "event", 
+        cascade = CascadeType.ALL, 
+        orphanRemoval = true,
+        fetch = FetchType.EAGER)
+    private List<TicketType> ticketTypes = new ArrayList<>();
 }

@@ -22,6 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vivaeventos.event_service.domain.service.IEventService;
+import com.vivaeventos.event_service.domain.dto.CreateEventRequest;
+import com.vivaeventos.event_service.domain.dto.CreateTicketTypeRequest;
+import com.vivaeventos.event_service.domain.dto.EventDetailResponse;
+import com.vivaeventos.event_service.domain.dto.EventResponse;
+import com.vivaeventos.event_service.domain.dto.TicketTypeResponse;
 import com.vivaeventos.event_service.domain.model.Event;
 
 import jakarta.validation.Valid;
@@ -31,7 +36,7 @@ import jakarta.validation.Valid;
  * EventController
  */
 @RestController
-@RequestMapping("/eventos-api")
+@RequestMapping("/events")
 public class EventController {
 
     private final IEventService eventService;
@@ -47,78 +52,62 @@ public class EventController {
 
     
     /**
-     * Listar todos los eventos
+     * Crear un nuevo evento pasando el objeto en el cuerpo de la petición, usando validaciones
      */
-    @GetMapping("/eventos")
-    public ResponseEntity<Map<String, Object>> getEventos() {
-        List<Event> events = eventService.findAll();
-        Map<String, Object> response = new HashMap<>();
-        response.put(EVENTS, events);
-        return ResponseEntity.ok(response);
-    }
-
-    /**
-     * Listar eventos con paginación.
-     */
-    @GetMapping("/eventos/page/{page}")
-    public ResponseEntity<Object> index(@PathVariable Integer page) {
-        Pageable pageable = PageRequest.of(page, 10);
-        Page<Event> productos = eventService.findAll(pageable);
-        return ResponseEntity.ok(productos);
-    }
-
-    /**
-     * Crear un nuevo producto pasando el objeto en el cuerpo de la petición, usando validaciones
-     */
-    @PostMapping("/eventos")
-    public ResponseEntity<Map<String, Object>> save(@Valid @RequestBody Event event, BindingResult result) {
+    @PostMapping
+    public ResponseEntity<Map<String, Object>> createEvent(@Valid @RequestBody CreateEventRequest request,
+            BindingResult result) {
         if (result.hasErrors()) {
             ResponseEntity.badRequest();
         }
         Map<String, Object> response = new HashMap<>();
-        Event newEvent = eventService.save(event);
+
+        EventResponse event = eventService.createEvent(request);
+
         response.put(MSJ, "El evento ha sido creado con éxito!");
-        response.put(EVENT, newEvent);
+        response.put(EVENT, event);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @PostMapping("/{eventId}/ticket-types")
+    public ResponseEntity<TicketTypeResponse> createTicketType(
+            @PathVariable UUID eventId,
+            @Valid @RequestBody CreateTicketTypeRequest request) {
 
-    /**
-     * Eliminar un evento pasando el objeto en el cuerpo de la petición.
-     */
-    @DeleteMapping("/eventos")
-    public ResponseEntity<Map<String, Object>> delete(@RequestBody Event event) {
-        eventService.findById(event.getEventId);
-        eventService.delete(event);
-        Map<String, Object> response = new HashMap<>();
-        response.put(MSJ, "El producto ha sido eliminado con éxito!");
-        response.put(EVENT, null);
-        return ResponseEntity.ok(response);
+        TicketTypeResponse ticketType =
+                eventService.createTicketType(
+                        eventId,
+                        request
+                );
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(ticketType);
     }
 
-    /**
-     * Actualizar un producto pasando el objeto en el cuerpo de la petición.
-     * @param evento: Objeto Producto que se va a actualizar
-     */
-    @PutMapping("/eventos")
-    public ResponseEntity<Map<String, Object>> update(@Valid @RequestBody Event event, BindingResult result) {
-        eventService.findById(event.getEventId());
-        Map<String, Object> response = new HashMap<>();
-        Event updatedEvent = eventService.update(event);
-        response.put(MSJ, "El producto ha sido actualizado con éxito!");
-        response.put(EVENT, updatedEvent);
-        return ResponseEntity.ok(response);
+    @PostMapping("/{eventId}/activate")
+    public ResponseEntity<EventResponse> activateEvent(
+            @PathVariable UUID eventId) {
+
+        EventResponse event =
+                eventService.activateEvent(eventId);
+
+        return ResponseEntity.ok(event);
     }
 
-    /**
-     * Obtener un producto por su ID.
-     */
-    @GetMapping("/eventos/{id}")
-    public ResponseEntity<Map<String, Object>> findById(@PathVariable UUID id) {
-    Optional<Event> event = eventService.findById(id);
-    Map<String, Object> response = new HashMap<>();
-        response.put(MSJ, "El evento ha sido encontrado con éxito!");
-        response.put(EVENT, event);
-        return ResponseEntity.ok(response);
+    @GetMapping
+    public ResponseEntity<List<EventResponse>> getActiveEvents() {
+        return ResponseEntity.ok(
+                eventService.getActiveEvents()
+        );
+    }
+
+    @GetMapping("/{eventId}")
+    public ResponseEntity<EventDetailResponse> getEventById(
+            @PathVariable UUID eventId) {
+
+        return ResponseEntity.ok(
+                eventService.findEventById(eventId)
+        );
     }
 }
