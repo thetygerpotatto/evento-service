@@ -16,5 +16,5 @@ public class TicketTypeResponse {
 
     private BigDecimal price;
 
-    private Integer maxCup;
+    private Integer maxCupo;
 }

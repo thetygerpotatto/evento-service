@@ -47,6 +47,7 @@ public class EventServiceImpl implements IEventService {
                 .description(request.getDescription())
                 .date(request.getDate())
                 .address(request.getAddress())
+                .city(request.getCity())
                 .status(EventStatus.BORRADOR)
                 .createdAt(LocalDateTime.now())
                 .build();
@@ -88,7 +89,7 @@ public class EventServiceImpl implements IEventService {
         TicketType ticketType = TicketType.builder()
                 .name(request.getName())
                 .price(request.getPrice())
-                .maxCup(request.getMaxCup())
+                .maxCupo(request.getMaxCupo())
                 .event(event)
                 .build();
 

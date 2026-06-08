@@ -19,4 +19,5 @@ public class CreateTicketTypeRequest {
 
     @NotNull(message = "El cupo es obligatorio")
     @Min(value = 1, message = "El cupo debe ser mayor que 0")
-    private Integer maxCup; }
+    private Integer maxCupo; 
+}

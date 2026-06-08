@@ -19,6 +19,8 @@ public class EventMapper {
                 .date(event.getDate())
                 .address(event.getAddress())
                 .status(event.getStatus())
+                .city(event.getCity())
+                .createdAt(event.getCreatedAt())
                 .build();
     }
 
@@ -28,8 +30,8 @@ public class EventMapper {
         return TicketTypeResponse.builder()
                 .id(ticketType.getId())
                 .name(ticketType.getName())
-                price(ticketType.getPrice())
-                .maxCup(ticketType.getMaxCup())
+                .price(ticketType.getPrice())
+                .maxCupo(ticketType.getMaxCupo())
                 .build();
     }
 
@@ -43,6 +45,7 @@ public class EventMapper {
                 .date(event.getDate())
                 .address(event.getAddress())
                 .status(event.getStatus())
+                .city(event.getCity())
                 .ticketTypes(
                         event.getTicketTypes()
                                 .stream()
