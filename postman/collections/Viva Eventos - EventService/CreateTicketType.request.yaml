@@ -8,8 +8,8 @@ body:
   type: json
   content: |-
     {
-        "name": "VIP",
-        "price": 500000,
-        "maxCupo": 50
+        "name": "GENERAL",
+        "price": 50000,
+        "maxCupo": 500
     }
 order: 2248116819866721

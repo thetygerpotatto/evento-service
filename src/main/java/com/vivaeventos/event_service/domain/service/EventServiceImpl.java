@@ -152,6 +152,7 @@ public class EventServiceImpl implements IEventService {
                     "Solo se pueden cancelar enventos activos");
         }
 
+        event.setStatus(EventStatus.CANCELLED);
         Event updatedEvent =
                 eventRepository.save(event);
 

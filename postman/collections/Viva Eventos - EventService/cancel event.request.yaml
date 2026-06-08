@@ -1,0 +1,7 @@
+$kind: http-request
+url: "{{baseUrl}}/events/{{eventId}}/cancel-event"
+method: POST
+body:
+  type: json
+  content: ""
+order: 4434343996343590
