@@ -1,0 +1,22 @@
+$kind: http-request
+url: "{{baseUrl}}/events"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+        "name": "Rock en Cali",
+        "description": "Concierto de rock",
+        "date": "2027-06-15",
+        "address": "Estadio Pascual",
+        "city": "Cali"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const json = pm.response.json();
+      pm.environment.set("eventId", json.event.id);
+    language: text/javascript
+order: 1780876301421

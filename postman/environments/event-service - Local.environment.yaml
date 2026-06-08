@@ -1,0 +1,8 @@
+name: event-service - Local
+values:
+  - key: baseUrl
+    value: ''
+  - key: eventId
+    value: ''
+  - key: ticketTypeId
+    value: ''

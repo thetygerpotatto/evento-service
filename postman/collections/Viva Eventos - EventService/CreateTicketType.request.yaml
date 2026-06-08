@@ -1,0 +1,15 @@
+$kind: http-request
+name: CreateTicketType
+url: "{{baseUrl}}/events/{{eventId}}/ticket-types"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+        "name": "VIP",
+        "price": 500000,
+        "maxCupo": 50
+    }
+order: 2248116819866721

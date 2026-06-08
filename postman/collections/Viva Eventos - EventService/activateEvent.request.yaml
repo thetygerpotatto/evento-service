@@ -1,0 +1,7 @@
+$kind: http-request
+url: "{{baseUrl}}/events/{{eventId}}/activate"
+method: POST
+body:
+  type: json
+  content: ""
+order: 3777508032370860

@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{baseUrl}}/events"
+method: GET
+order: 4158252022932275
