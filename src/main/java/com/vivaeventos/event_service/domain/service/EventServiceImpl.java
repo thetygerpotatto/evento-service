@@ -48,7 +48,7 @@ public class EventServiceImpl implements IEventService {
                 .date(request.getDate())
                 .address(request.getAddress())
                 .city(request.getCity())
-                .status(EventStatus.BORRADOR)
+                .status(EventStatus.DRAFT)
                 .createdAt(LocalDateTime.now())
                 .build();
 
@@ -67,7 +67,7 @@ public class EventServiceImpl implements IEventService {
         Event event = eventRepository.findById(id).orElseThrow(() -> 
             new ResourceNotFoundException("Evento no encontrado"));
 
-        if (event.getStatus() != EventStatus.ACTIVO) {
+        if (event.getStatus() != EventStatus.ACTIVE) {
 
             throw new BusinessException(
                     "El evento no está disponible");
@@ -107,10 +107,10 @@ public class EventServiceImpl implements IEventService {
                         new ResourceNotFoundException(
                                 "Evento no encontrado"));
 
-        if (event.getStatus() != EventStatus.BORRADOR) {
+        if (event.getStatus() != EventStatus.DRAFT) {
 
             throw new BusinessException(
-                    "Solo eventos en estado BORRADOR pueden activarse");
+                    "Solo eventos en estado DRAFT pueden activarse");
         }
 
         boolean hasTicketTypes =
@@ -122,7 +122,7 @@ public class EventServiceImpl implements IEventService {
                     "El evento debe tener al menos un tipo de boleta");
         }
 
-        event.setStatus(EventStatus.ACTIVO);
+        event.setStatus(EventStatus.ACTIVE);
 
         Event updatedEvent =
                 eventRepository.save(event);
@@ -134,7 +134,7 @@ public class EventServiceImpl implements IEventService {
     public List<EventResponse> getActiveEvents() {
 
         return eventRepository
-                .findByStatus(EventStatus.ACTIVO)
+                .findByStatus(EventStatus.ACTIVE)
                 .stream()
                 .map(EventMapper::toResponse)
                 .toList();
