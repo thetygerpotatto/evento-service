@@ -110,4 +110,12 @@ public class EventController {
                 eventService.findEventById(eventId)
         );
     }
+
+    @PostMapping("/{eventId}")
+    public ResponseEntity<EventResponse> cancelEvent(
+            @PathVariable UUID eventId) {
+        EventResponse event = eventService.cancelEvent(eventId);
+
+        return ResponseEntity.ok(event);
+    }
 }

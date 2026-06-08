@@ -20,6 +20,8 @@ public interface IEventService {
 
     EventResponse activateEvent(UUID eventId);
 
+    EventResponse cancelEvent(UUID eventId);
+
     List<EventResponse> getActiveEvents();
 
     EventDetailResponse findEventById(UUID id);

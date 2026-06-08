@@ -140,6 +140,24 @@ public class EventServiceImpl implements IEventService {
                 .toList();
     }
 
+    @Override
+    public EventResponse cancelEvent(UUID eventId) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Evento no encontrado"));
+
+        if (event.getStatus() != EventStatus.ACTIVE) {
+            throw new BusinessException(
+                    "Solo se pueden cancelar enventos activos");
+        }
+
+        Event updatedEvent =
+                eventRepository.save(event);
+
+        return EventMapper.toResponse(updatedEvent);
+    }
+
 
     // @Override TODO
     // public Event update(Event event) {
